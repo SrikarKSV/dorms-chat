@@ -1,0 +1,150 @@
+@import 'base.scss';
+@import 'chatroom.scss';
+
+.container {
+  height: 100vh;
+  max-width: 80vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+header {
+  margin-top: 2rem;
+  text-align: center;
+
+  h1 {
+    font-size: 6rem;
+    background-image: var(--gradient);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: -1rem;
+  }
+
+  p {
+    color: var(--dark-grey);
+    font-size: 1.2rem;
+  }
+}
+
+.home-button {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: -10rem;
+}
+
+.form {
+  background: var(--grey);
+  width: 30%;
+  height: 15rem;
+  margin: auto;
+  margin-top: -10rem;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 5px;
+
+  input[type='text'] {
+    font: inherit;
+    font-size: 1rem;
+    padding: 0.6em;
+    border: none;
+    border-radius: 5px;
+  }
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+  z-index: -1;
+}
+
+footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .socials {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    a {
+      padding: 0;
+      width: 25px;
+      height: 25px;
+    }
+
+    svg {
+      fill: white;
+    }
+  }
+}
+
+@media only screen and (max-width: 75em) {
+  // 1200px
+  .form {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 62.5em) {
+  // 1000px
+  .chatroom {
+    max-width: 70%;
+  }
+}
+
+@media only screen and (max-width: 43.75em) {
+  // 700px
+  .form {
+    width: 70%;
+  }
+
+  .chatroom {
+    max-width: 90%;
+  }
+}
+
+@media only screen and (max-width: 31.25em) {
+  // 500px
+
+  .heading {
+    font-size: 5rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+
+  .form {
+    width: 90%;
+  }
+
+  .chatroom {
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 21.875em) {
+  // 350px
+  .form {
+    width: 100%;
+  }
+}

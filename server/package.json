@@ -1,0 +1,17 @@
+{
+  "name": "dorms-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A simple app to create chat rooms and chat with your friends!",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.2.0",
+    "hono": "^3.8.3",
+    "nanoid": "^5.0.2",
+    "ws": "^8.14.2"
+  }
+}
