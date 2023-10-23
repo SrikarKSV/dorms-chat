@@ -81,11 +81,11 @@ export const handleDorm: ActionFunction = async ({ request }) => {
   }
 
   if (action?.toString() === 'createDorm')
-    res = await fetch('http://localhost:3000/createDorm', {
+    res = await fetch('https://dorms-chat.onrender.com/createDorm', {
       method: 'POST',
     });
   else
-    res = await fetch('http://localhost:3000/joinDorm', {
+    res = await fetch('https://dorms-chat.onrender.com/joinDorm', {
       method: 'post',
       body: JSON.stringify({ dormId }),
     });

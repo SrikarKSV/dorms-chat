@@ -61,7 +61,16 @@ wss.on('connection', (ws) => {
   });
 });
 
-app.use('/*', cors());
+app.use(
+  '/*',
+  cors({
+    origin: 'https://dormss.netlify.app',
+  })
+);
+
+app.get('/', (c) => {
+  return c.text('Working!');
+});
 
 app.post('/createDorm', async (c) => {
   const dormId = nanoid(6);
