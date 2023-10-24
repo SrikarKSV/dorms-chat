@@ -1,5 +1,5 @@
 import { Form, useLocation, useNavigate } from 'react-router-dom';
-import { copyToClipboard } from '../utils';
+import { copyToClipboard, mobileCheck } from '../utils';
 import { useEffect, useState, useRef } from 'react';
 import toast from 'react-hot-toast';
 
@@ -47,7 +47,7 @@ export default function ChatRoom() {
   }
 
   function handleVisibilityChange() {
-    if (document.hidden && ws.current?.readyState === 1) {
+    if (mobileCheck() && document.hidden && ws.current?.readyState === 1) {
       ws.current?.send(
         JSON.stringify({
           type: 'LEFT',
