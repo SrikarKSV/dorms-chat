@@ -88,6 +88,9 @@ export const handleDorm: ActionFunction = async ({ request }) => {
     res = await fetch('https://dorms-chat.onrender.com/joinDorm', {
       method: 'post',
       body: JSON.stringify({ dormId }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
   if (!res.ok) {
