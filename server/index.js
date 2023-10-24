@@ -100,7 +100,7 @@ app.onError((err, c) => {
   return c.text(err.message, 500);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 serve({
   fetch: app.fetch,
   port: PORT,

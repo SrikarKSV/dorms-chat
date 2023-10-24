@@ -97,6 +97,22 @@ footer {
   }
 }
 
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  margin: auto;
+
+  h2 {
+    margin-top: -8rem;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
 @media only screen and (max-width: 75em) {
   // 1200px
   .form {

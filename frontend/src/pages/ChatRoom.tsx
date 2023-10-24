@@ -45,7 +45,7 @@ export default function ChatRoom() {
       toast.success(state.message);
     }
 
-    ws.current = new WebSocket('wss://dorms-chat.onrender.com:8080');
+    ws.current = new WebSocket('wss://chocolate-caiman-sari.cyclic.app');
 
     ws.current.addEventListener('open', () => {
       ws.current?.send(
