@@ -33,7 +33,7 @@ export default function ChatRoom() {
     e.target.reset();
   }
 
-  function handleUnload(event) {
+  function handleUnload() {
     if (ws.current?.readyState === 1) {
       ws.current?.send(
         JSON.stringify({
