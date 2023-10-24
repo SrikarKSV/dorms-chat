@@ -33,19 +33,6 @@ export default function ChatRoom() {
     e.target.reset();
   }
 
-  function handleUnload() {
-    if (ws.current?.readyState === 1) {
-      ws.current?.send(
-        JSON.stringify({
-          type: 'LEFT',
-          dormId: state.dormId,
-          username: state.username,
-        })
-      );
-      ws.current?.close();
-    }
-  }
-
   useEffect(() => {
     if (state === null || state.username === null || state.dormId === null) {
       toast.error('Please try again!', {
@@ -84,10 +71,7 @@ export default function ChatRoom() {
       return navigate('/', { replace: true });
     });
 
-    window.addEventListener('beforeunload', handleUnload);
-
     return () => {
-      window.removeEventListener('beforeunload', handleUnload);
       if (ws.current?.readyState === 1) {
         ws.current?.close();
       }
