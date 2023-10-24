@@ -72,7 +72,15 @@ export default function ChatRoom() {
     });
 
     return () => {
-      if (ws.current?.readyState === 1) ws.current?.close();
+      if (ws.current?.readyState === 1) {
+        ws.current.send(
+          JSON.stringify({
+            type: 'LEFT',
+            username: state.username,
+          })
+        );
+        ws.current?.close();
+      }
     };
   }, []);
 

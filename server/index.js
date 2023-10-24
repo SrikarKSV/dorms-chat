@@ -86,6 +86,13 @@ wss.on('connection', (ws) => {
         from: username,
         message: text,
       });
+    } else if (type === 'LEFT') {
+      sendMessage(dormId, {
+        id: nanoid(6),
+        type: 'LEFT',
+        from: username,
+        message: `${username} left the chat`,
+      });
     }
   });
 
