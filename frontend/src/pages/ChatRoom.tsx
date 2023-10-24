@@ -71,14 +71,20 @@ export default function ChatRoom() {
       return navigate('/', { replace: true });
     });
 
-    return () => {
+    window.addEventListener('beforeunload', () => {
       if (ws.current?.readyState === 1) {
-        ws.current.send(
+        ws.current?.send(
           JSON.stringify({
             type: 'LEFT',
             username: state.username,
           })
         );
+        ws.current?.close();
+      }
+    });
+
+    return () => {
+      if (ws.current?.readyState === 1) {
         ws.current?.close();
       }
     };
