@@ -69,6 +69,7 @@ wss.on('connection', (ws) => {
           })
         );
         ws.close();
+        return;
       }
 
       dorms.get(dormId).add(ws);
@@ -97,7 +98,21 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', () => {
-    dorms.forEach((room) => room.delete(ws));
+    const dormIds = [];
+    dorms.forEach((dorm, key) => {
+      if (dorm.has(ws)) {
+        dorm.delete(ws);
+        dormIds.push(key);
+      }
+    });
+    dormIds.forEach((dormId) => {
+      if (
+        dorms.get(dormId) !== null &&
+        dorms.get(dormId) !== undefined &&
+        dorms.get(dormId).size <= 0
+      )
+        dorms.delete(dormId);
+    });
   });
 
   ws.on('error', (err) => {
