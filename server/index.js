@@ -12,11 +12,13 @@ server.use(
   })
 );
 
+server.use(express.json());
+
 server.get('/', (req, res) => {
   return res.send('Working!');
 });
 
-server.post('/createDorm', async (req, res) => {
+server.post('/createDorm', (req, res) => {
   const dormId = nanoid(6);
   dorms.set(dormId, new Set());
 
@@ -28,8 +30,8 @@ function getRandomKey(collection) {
   return keys[Math.floor(Math.random() * keys.length)];
 }
 
-server.post('/joinDorm', async (req, res, next) => {
-  let { dormId } = await c.req.json();
+server.post('/joinDorm', (req, res) => {
+  let { dormId } = req.body;
   if (dormId === '') {
     dormId = getRandomKey(dorms);
   }
