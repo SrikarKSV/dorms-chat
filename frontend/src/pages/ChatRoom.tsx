@@ -33,6 +33,32 @@ export default function ChatRoom() {
     e.target.reset();
   }
 
+  function handleUnload() {
+    if (ws.current?.readyState === 1) {
+      ws.current?.send(
+        JSON.stringify({
+          type: 'LEFT',
+          dormId: state.dormId,
+          username: state.username,
+        })
+      );
+      ws.current?.close();
+    }
+  }
+
+  function handleVisibilityChange() {
+    if (document.hidden && ws.current?.readyState === 1) {
+      ws.current?.send(
+        JSON.stringify({
+          type: 'LEFT',
+          dormId: state.dormId,
+          username: state.username,
+        })
+      );
+      ws.current?.close();
+    }
+  }
+
   useEffect(() => {
     if (state === null || state.username === null || state.dormId === null) {
       toast.error('Please try again!', {
@@ -71,7 +97,12 @@ export default function ChatRoom() {
       return navigate('/', { replace: true });
     });
 
+    window.addEventListener('beforeunload', handleUnload);
+    window.addEventListener('visibilitychange', handleVisibilityChange);
+
     return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+      window.removeEventListener('visibilitychange', handleVisibilityChange);
       if (ws.current?.readyState === 1) {
         ws.current?.close();
       }
