@@ -1,11 +1,46 @@
 import { WebSocketServer, WebSocket } from 'ws';
-import { serve } from '@hono/node-server';
-import { cors } from 'hono/cors';
-import { Hono } from 'hono';
+import express from 'express';
+import http from 'http';
+import cors from 'cors';
 import { nanoid } from 'nanoid';
 
-const wss = new WebSocketServer({ port: 8080 });
-const app = new Hono();
+const server = express();
+
+server.use(
+  cors({
+    origin: 'https://dormss.netlify.app',
+  })
+);
+
+server.get('/', (req, res) => {
+  return res.send('Working!');
+});
+
+server.post('/createDorm', async (req, res) => {
+  const dormId = nanoid(6);
+  dorms.set(dormId, new Set());
+
+  return res.send(dormId);
+});
+
+function getRandomKey(collection) {
+  let keys = Array.from(collection.keys());
+  return keys[Math.floor(Math.random() * keys.length)];
+}
+
+server.post('/joinDorm', async (req, res, next) => {
+  let { dormId } = await c.req.json();
+  if (dormId === '') {
+    dormId = getRandomKey(dorms);
+  }
+  if (!dormId) {
+    res.status(404).send('No dorms available');
+  }
+  return res.send(dormId);
+});
+
+const app = http.createServer(server);
+const wss = new WebSocketServer({ server: app });
 
 let dorms = new Map();
 
@@ -61,47 +96,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-app.use(
-  '/*',
-  cors({
-    origin: 'https://dormss.netlify.app',
-  })
-);
-
-app.get('/', (c) => {
-  return c.text('Working!');
-});
-
-app.post('/createDorm', async (c) => {
-  const dormId = nanoid(6);
-  dorms.set(dormId, new Set());
-
-  return c.text(dormId);
-});
-
-function getRandomKey(collection) {
-  let keys = Array.from(collection.keys());
-  return keys[Math.floor(Math.random() * keys.length)];
-}
-
-app.post('/joinDorm', async (c) => {
-  let { dormId } = await c.req.json();
-  if (dormId === '') {
-    dormId = getRandomKey(dorms);
-  }
-  if (!dormId) {
-    throw new Error('No dorms available');
-  }
-  return c.text(dormId);
-});
-
-app.onError((err, c) => {
-  console.error(`${err}`);
-  return c.text(err.message, 500);
-});
-
 const PORT = process.env.PORT || 5000;
-serve({
-  fetch: app.fetch,
-  port: PORT,
+app.listen(PORT, () => {
+  console.log(`Listening on PORT: ${PORT}`);
 });

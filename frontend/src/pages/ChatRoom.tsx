@@ -72,7 +72,7 @@ export default function ChatRoom() {
     });
 
     return () => {
-      ws.current?.close();
+      if (ws.current?.readyState === 1) ws.current?.close();
     };
   }, []);
 
