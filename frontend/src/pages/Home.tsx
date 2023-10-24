@@ -81,11 +81,11 @@ export const handleDorm: ActionFunction = async ({ request }) => {
   }
 
   if (action?.toString() === 'createDorm')
-    res = await fetch('https://dorms-chat.onrender.com/createDorm', {
+    res = await fetch('https://chocolate-caiman-sari.cyclic.app/createDorm', {
       method: 'POST',
     });
   else
-    res = await fetch('https://dorms-chat.onrender.com/joinDorm', {
+    res = await fetch('https://chocolate-caiman-sari.cyclic.app/joinDorm', {
       method: 'post',
       body: JSON.stringify({ dormId }),
     });
